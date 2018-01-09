@@ -1,0 +1,25 @@
+{
+  "name": "es6-dessert",
+  "version": "1.0.0",
+  "description": "ES6小点心系列，包括通用弹窗，楼层定位，倒计时等等。",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dom-bro/es6-dessert.git"
+  },
+  "keywords": [],
+  "author": "DOM哥",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dom-bro/es6-dessert/issues"
+  },
+  "homepage": "https://github.com/dom-bro/es6-dessert#readme",
+  "devDependencies": {
+    "lodash": "^4.17.4",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  }
+}
