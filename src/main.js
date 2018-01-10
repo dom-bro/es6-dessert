@@ -1,3 +1,5 @@
-import _ from 'lodash'
+import NormalPopup from './NormalPopup'
 
-console.log(_)
+export default {
+  NormalPopup,
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>通用弹窗测试</title>
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+
+<div class="btn btn-primary btn-lg open-popup-A">打开弹窗A</div>
+
+<div class="btn btn-info btn-lg open-popup-B">打开弹窗B | onOpen | onClose</div>
+
+<div class="btn btn-success btn-lg open-popup-C">打开弹窗C | 点击遮罩时关闭</div>
+
+<div class="btn btn-danger btn-lg open-popup-D">打开弹窗D | 渐现效果</div>
+
+<div id="popup-A" class="popup" style="display: none">
+  <div class="popup-inner">
+    <div class="popup-content">A</div>
+    <div class="foot-btn">
+      <div class="btn btn-primary btn-lg close-popup-A">关闭弹窗 A</div>
+    </div>
+  </div>
+</div>
+
+<div id="popup-B" class="popup" style="display: none">
+  <div class="popup-inner">
+    <div class="popup-content">B</div>
+    <div class="foot-btn">
+      <div class="btn btn-info btn-lg close-popup-B">关闭弹窗 B</div>
+    </div>
+  </div>
+</div>
+
+<div id="popup-C-mask" class="popup" style="display: none;cursor: pointer"></div>
+<div id="popup-C" class="popup-inner" style="display: none">
+  <div class="popup-content">C</div>
+</div>
+
+<div id="popup-D" class="popup" style="display: none">
+  <div class="popup-inner">
+    <div class="popup-content">D</div>
+    <div class="foot-btn">
+      <div class="btn btn-danger btn-lg close-popup-D">关闭弹窗 D</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="../dist/es6-dessert.js"></script>
+<script>
+  var NormalPopup = es6Dessert.NormalPopup
+  new NormalPopup({
+    popup: '#popup-A',
+    openBtn: '.open-popup-A',
+    closeBtn: '.close-popup-A',
+  })
+
+  new NormalPopup({
+    popup: '#popup-B',
+    openBtn: '.open-popup-B',
+    closeBtn: '.close-popup-B',
+    onOpen(){
+      alert('open B')
+    },
+    onClose(){
+      alert('close B')
+    },
+  })
+
+  new NormalPopup({
+    mask: '#popup-C-mask',
+    popup: '#popup-C',
+    openBtn: '.open-popup-C',
+    closeOnClickMask: true,
+  })
+
+  new NormalPopup({
+    popup: '#popup-D',
+    openBtn: '.open-popup-D',
+    closeBtn: '.close-popup-D',
+    effect: 'fade',
+    duration: 600,
+  })
+</script>
+</body>
+</html>

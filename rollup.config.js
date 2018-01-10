@@ -1,16 +1,16 @@
-import resolve from 'rollup-plugin-node-resolve'
-import cjs from 'rollup-plugin-commonjs'
+import pkg from './package.json'
 
 export default {
   input: 'src/main.js',
-  output: {
-    format: 'iife',
-  },
-  plugins: [
-    resolve(),
-    cjs(),
-  ],
-  external: [
-    'lodash',
+  output: [
+    {
+      file: pkg.main,
+      format: 'es',
+    },
+    {
+      file: pkg.browser,
+      format: 'umd',
+      name: 'es6Dessert',
+    },
   ],
 }
