@@ -8,14 +8,24 @@
   <link rel="stylesheet" href="demo.css">
 </head>
 <body>
+<div class="container">
+  <h2 class="text-center" style="margin-top: 2rem">
+    <a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>
+  </h2>
+  <div class="row">
+    <div class="btn btn-primary btn-lg open-popup-A">打开弹窗A</div>
+  </div>
+  <div class="row">
+    <div class="btn btn-info btn-lg open-popup-B">打开弹窗B | onOpen | onClose</div>
+  </div>
 
-<div class="btn btn-primary btn-lg open-popup-A">打开弹窗A</div>
-
-<div class="btn btn-info btn-lg open-popup-B">打开弹窗B | onOpen | onClose</div>
-
-<div class="btn btn-success btn-lg open-popup-C">打开弹窗C | 点击遮罩时关闭</div>
-
-<div class="btn btn-danger btn-lg open-popup-D">打开弹窗D | 渐现效果</div>
+  <div class="row">
+    <div class="btn btn-success btn-lg open-popup-C">打开弹窗C | 点击遮罩时关闭</div>
+  </div>
+  <div class="row">
+    <div class="btn btn-danger btn-lg open-popup-D">打开弹窗D | 渐现效果</div>
+  </div>
+</div>
 
 <div id="popup-A" class="popup" style="display: none">
   <div class="popup-inner">
@@ -49,7 +59,7 @@
   </div>
 </div>
 
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script src="../dist/es6-dessert.js"></script>
 <script>
   var NormalPopup = es6Dessert.NormalPopup
@@ -83,7 +93,13 @@
     openBtn: '.open-popup-D',
     closeBtn: '.close-popup-D',
     effect: 'fade',
-    duration: 600,
+    duration: 1000,
+    onOpen(){
+      alert('open D')
+    },
+    onClose(){
+      alert('close D')
+    },
   })
 </script>
 </body>

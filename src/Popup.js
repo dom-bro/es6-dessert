@@ -8,18 +8,15 @@ export default class Popup {
       openBtn: '',    // 打开弹窗按钮（推荐传入 class）
       closeBtn: '',   // 关闭弹窗按钮（推荐传入 class）
       toggleBtn: '',  // 打开/关闭按钮（推荐传入 class）
-      effect: '',     // 过渡效果
-      speed: 300,       // 动画时间
+      duration: 0,    // 动画时长
       closeOnClickMask: false,                    // 点击遮罩时是否关闭弹窗
       closeOthersOnOpen: true,                    // 打开一个弹窗时是否关闭其它弹窗
       popupStatus: '-popup-visible-',             // 标识弹窗的状态
       activeToggleBtn: '-active-trigger-btn-',    // 多个 toggle btn 情况
 
       // 回调会在动画结束之后调用
-      onOpen() {
-      },     // 打开回调
-      onClose() {
-      },    // 关闭回调
+      onOpen() {},     // 打开回调
+      onClose() {},    // 关闭回调
     }
 
     if (!window.$) {

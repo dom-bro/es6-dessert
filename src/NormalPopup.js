@@ -1,5 +1,8 @@
 import Popup from './Popup';
 
+/**
+ * ES6小点心之通用弹窗
+ */
 export default class NormalPopup extends Popup {
   constructor(options = {}) {
     super(options)
@@ -9,26 +12,24 @@ export default class NormalPopup extends Popup {
     let self = this,
       {conf} = self
 
+    self.closeOthersOnOpen()
+
+    /*
+     * 回调总是在打开/关闭动画结束之后被调用的，但是某些阻塞页面渲染的
+     * 操作（比如 window.alert）可能会阻止弹窗显现，导致看上去回调
+     * 像是在打开/关闭动画之前执行的。如果想避免这种情况，可在回调中使
+     * 用 setTimeout 延迟执行这些阻塞操作。
+     */
     function openCallback() {
-      setTimeout(() => {
         conf.onOpen.call(self)
         onOpen.call(self)
-      }, 0)
     }
-
-    self.closeOthersOnOpen()
 
     let popup = $(conf.popup),
       mask = $(conf.mask)
     if (!popup.hasClass(conf.popupStatus)) {
-      if (conf.effect === 'fade') {
-        mask.stop(true).clearQueue().fadeIn(conf.duration)
-        popup.stop(true).clearQueue().fadeIn(conf.duration, openCallback)
-      } else {
-        mask.show()
-        popup.show()
-        openCallback()
-      }
+      mask.stop(true).clearQueue().fadeIn(conf.duration)
+      popup.stop(true).clearQueue().fadeIn(conf.duration, openCallback)
       popup.addClass(conf.popupStatus)
     }
 
@@ -40,23 +41,15 @@ export default class NormalPopup extends Popup {
       {conf} = self
 
     function closeCallback() {
-      setTimeout(() => {
-        conf.onClose.call(self)
-        onClose.call(self)
-      }, 0)
+      conf.onClose.call(self)
+      onClose.call(self)
     }
 
     let popup = $(conf.popup),
       mask = $(conf.mask)
     if (popup.hasClass(conf.popupStatus)) {
-      if (conf.effect === 'fade') {
-        mask.stop(true).clearQueue().fadeOut(conf.duration)
-        popup.stop(true).clearQueue().fadeOut(conf.duration, closeCallback)
-      } else {
-        mask.hide()
-        popup.hide()
-        closeCallback()
-      }
+      mask.stop(true).clearQueue().fadeOut(conf.duration)
+      popup.stop(true).clearQueue().fadeOut(conf.duration, closeCallback)
       popup.removeClass(conf.popupStatus)
     }
 

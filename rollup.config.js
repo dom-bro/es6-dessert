@@ -1,3 +1,4 @@
+import babel from 'rollup-plugin-babel'
 import pkg from './package.json'
 
 export default {
@@ -13,4 +14,7 @@ export default {
       name: 'es6Dessert',
     },
   ],
+  plugins: [
+    babel(),
+  ]
 }
