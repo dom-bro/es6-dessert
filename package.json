@@ -5,7 +5,6 @@
   "main": "dist/es6-dessert.esm.js",
   "browser": "dist/es6-dessert.js",
   "files": [
-    "image",
     "dist"
   ],
   "scripts": {
