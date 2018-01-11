@@ -16,7 +16,18 @@
 
 ### 直接用 `<script>` 引入
 
-直接下载并用 <script> 标签引入，Vue 会被注册为一个全局变量。
+直接下载并用 &lt;script> 标签引入，es6-dessert.js 会注册一个全局变量 `es6Dessert`。接下来就可以使用 `es6Dessert.NormalPopup`，`es6Dessert.CountDown` 等去食用里面的小点心了。
+
+<table>
+  <thead><tr><th>开发环境</th><th>生产环境</th><th>描述</th></tr></thead>
+  <tbody>
+  <tr>
+    <td><a href="https://unpkg.com/es6-dessert/dist/es6-dessert.js" download>es6-dessert.js</a></td>
+    <td><a href="https://unpkg.com/es6-dessert/dist/es6-dessert.min.js" download>es6-dessert.min.js</a></td>
+    <td>包含通用弹窗，倒计时，楼层定位等所有小点心</td>
+  </tr>
+  </tbody>
+</table>
 
 ## 小点心列表
 
