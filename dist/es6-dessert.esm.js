@@ -1,3 +1,8 @@
+/*!
+ * ES6 Dessert v1.0.0
+ * (c) 2017-2018 DOM哥
+ * https://github.com/dom-bro/es6-dessert
+ */
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");

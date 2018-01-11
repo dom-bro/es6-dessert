@@ -1,3 +1,8 @@
+/*!
+ * ES6 Dessert v1.0.0
+ * (c) 2017-2018 DOM哥
+ * https://github.com/dom-bro/es6-dessert
+ */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
