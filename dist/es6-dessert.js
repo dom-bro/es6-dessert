@@ -4,10 +4,10 @@
  * https://github.com/dom-bro/es6-dessert
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.es6Dessert = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.es6Dessert = {})));
+}(this, (function (exports) { 'use strict';
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -219,10 +219,6 @@ function () {
 
 Popup.instances = [];
 
-/**
- * ES6小点心之通用弹窗
- */
-
 var NormalPopup =
 /*#__PURE__*/
 function (_Popup) {
@@ -291,10 +287,8 @@ function (_Popup) {
   return NormalPopup;
 }(Popup);
 
-var main = {
-  NormalPopup: NormalPopup
-};
+exports.NormalPopup = NormalPopup;
 
-return main;
+Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

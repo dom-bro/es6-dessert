@@ -213,10 +213,6 @@ function () {
 
 Popup.instances = [];
 
-/**
- * ES6小点心之通用弹窗
- */
-
 var NormalPopup =
 /*#__PURE__*/
 function (_Popup) {
@@ -285,8 +281,4 @@ function (_Popup) {
   return NormalPopup;
 }(Popup);
 
-var main = {
-  NormalPopup: NormalPopup
-};
-
-export default main;
+export { NormalPopup };

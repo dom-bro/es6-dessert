@@ -1,5 +1,5 @@
 import NormalPopup from './NormalPopup'
 
-export default {
+export {
   NormalPopup,
 }
