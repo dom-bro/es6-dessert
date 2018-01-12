@@ -43,6 +43,10 @@ import {NormalPopup} from 'es6-dessert'
   </tbody>
 </table>
 
+## API风格
+
+本系列均效仿 Swiper 的 API 风格，力求 Keep It Simple and Stupid。只需要相对宽松有序的 DOM 结构和一致的实例化风格，That's it，多一点不人性化的东西算俄输。
+
 ## 小点心列表
 
 <table>

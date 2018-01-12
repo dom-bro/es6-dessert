@@ -1,7 +1,7 @@
 import Popup from './Popup';
 
 /**
- * ES6小点心之通用弹窗
+ * 通用弹窗
  */
 export default class NormalPopup extends Popup {
   constructor(options = {}) {
@@ -28,9 +28,14 @@ export default class NormalPopup extends Popup {
     let popup = $(conf.popup),
       mask = $(conf.mask)
     if (!popup.hasClass(conf.popupStatus)) {
-      mask.stop(true).clearQueue().fadeIn(conf.duration)
-      popup.stop(true).clearQueue().fadeIn(conf.duration, openCallback)
-      popup.addClass(conf.popupStatus)
+      mask.stop(true)
+        .clearQueue()
+        .fadeIn(conf.duration)
+
+      popup.stop(true)
+        .clearQueue()
+        .addClass(conf.popupStatus)
+        .fadeIn(conf.duration, openCallback)
     }
 
     return self
