@@ -58,3 +58,15 @@ import {NormalPopup} from 'es6-dessert'
   </tr>
   </tbody>
 </table>
+
+## 本地构建
+
+本项目使用 rollup 进行打包。
+
+```bash
+git clone git@github.com:dom-bro/es6-dessert.git
+cd es6-dessert
+npm i
+npm i -g rollup
+npm run build
+```

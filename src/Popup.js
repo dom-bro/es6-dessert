@@ -47,7 +47,7 @@ export default class Popup {
       {conf} = self
 
     if (conf.openBtn) {
-      $(document).on('click', conf.openBtn, function (e) {
+      $(document).on('click', conf.openBtn, e => {
         e.stopPropagation()
         self.event = e
         self.open()
@@ -55,7 +55,7 @@ export default class Popup {
     }
 
     if (conf.closeBtn) {
-      $(document).on('click', conf.closeBtn, function (e) {
+      $(document).on('click', conf.closeBtn, e => {
         e.stopPropagation()
         self.event = e
         self.close()
@@ -63,7 +63,7 @@ export default class Popup {
     }
 
     if (conf.closeOnClickMask) {
-      $(document).on('click', conf.mask, function (e) {
+      $(document).on('click', conf.mask, e => {
         e.stopPropagation()
         self.event = e
         self.close()
@@ -87,7 +87,7 @@ export default class Popup {
       })
     }
 
-    $(document).on('click', conf.popup, function (e) {
+    $(document).on('click', conf.popup, e => {
       e.stopPropagation()
       self.event = e
     })
@@ -98,7 +98,7 @@ export default class Popup {
       {conf} = self
 
     if (conf.closeOthersOnOpen) {
-      Popup.instances.forEach(function (instance) {
+      Popup.instances.forEach(instance => {
         if (instance !== self) {
           instance.close()
         }
@@ -106,24 +106,19 @@ export default class Popup {
     }
   }
 
-  open(onOpen = function () {
-  }) {
-  }
+  // 子类须实现
+  open(onOpen = function(){}) {}
+  // 子类须实现
+  close(onClose = function(){}) {}
 
-  close(onClose = function () {
-  }) {
-  }
-
-  toggle(onOpen = function () {
-         },
-         onClose = function () {
-         },) {
+  toggle(onOpen = function(){}, onClose = function(){}) {
     let self = this,
-      {conf} = self
+      {conf} = self,
+      popup = $(conf.popup)
 
-    let popup = $(conf.popup)
-
-    popup.hasClass(conf.popupStatus) ? self.close(onClose) : self.open(onOpen)
+    popup.hasClass(conf.popupStatus) ?
+      self.close(onClose) :
+      self.open(onOpen)
   }
 }
 Popup.instances = []

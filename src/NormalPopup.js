@@ -53,9 +53,14 @@ export default class NormalPopup extends Popup {
     let popup = $(conf.popup),
       mask = $(conf.mask)
     if (popup.hasClass(conf.popupStatus)) {
-      mask.stop(true).clearQueue().fadeOut(conf.duration)
-      popup.stop(true).clearQueue().fadeOut(conf.duration, closeCallback)
+      mask.stop(true)
+        .clearQueue()
+        .fadeOut(conf.duration)
+
       popup.removeClass(conf.popupStatus)
+        .stop(true)
+        .clearQueue()
+        .fadeOut(conf.duration, closeCallback)
     }
 
     return self
