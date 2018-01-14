@@ -11,7 +11,6 @@ export function addStyle(el, styles){
 }
 
 /**
- *
  * @param el：朴素的DOM元素
  * @param axis：哪个方向的偏移量（'x'|'y'）
  * @returns {number} 返回一个浮点型数值
@@ -57,4 +56,60 @@ export function getTranslate(el, axis = 'x') {
     else curTransform = parseFloat(matrix[5]);
   }
   return curTransform || 0;
+}
+
+function getType(val){
+  return Object.prototype.toString.call(val)
+}
+export function isObject(val) {
+  return getType(val) === '[object Object]'
+}
+
+export function isBoolean(val) {
+  return getType(val) === '[object Boolean]'
+}
+
+export function isArray(val) {
+  return getType(val) === '[object Array]'
+}
+
+/**
+ * $.extend
+ */
+export function extend(...args) {
+  let target = args[0],
+    i = 1,
+    deep = false
+
+  // Handle a deep copy situation
+  if (isBoolean(target)) {
+    deep = target
+
+    // Skip the boolean and the target
+    target = Object(args[ i++ ])
+  }
+  for ( ; i < args.length; ++i) {
+    const nextSource = args[i]
+    // Skip over if null/undefined
+    if (nextSource !== undefined && nextSource !== null) {
+      for (let nextKey in nextSource) {
+        // Avoid bugs when hasOwnProperty is shadowed
+        if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+          let from = nextSource[nextKey],
+            to = target[nextKey]
+
+          if (
+            deep &&
+            getType(to) === getType(from) &&
+            (isObject(to) || isArray(to))
+          ) {
+            extend(deep, to, from)
+          } else {
+            to = from
+          }
+        }
+      }
+    }
+  }
+  return target
 }

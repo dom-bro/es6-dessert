@@ -17,12 +17,35 @@ export default class SlidePopup extends Popup {
       {conf} = self,
       popup = $(conf.popup)
 
-    self.firstInit = true
-
     addStyle(popup, requiredSlidePopupStyle)
   }
 
+  required(){
+    let self = this,
+      {conf} = self,
+      popup = $(conf.popup)
+
+
+    /*
+     * 不允许在 popup 上设置 transform 样式
+     */
+    let popupTransform = popup.css('transform')
+    // display:none 元素是拿不到 transform 值的，
+    // 因此以迅雷不及掩耳盗铃铛之势快速 show 和 hide 一下，
+    // 这不会引起浏览器的重绘，所以页面不会发生闪烁
+    if(popup.css('display') === 'none'){
+      popup.show()
+      popupTransform = popup.css('transform')
+      popup.hide()
+    }
+    if(popupTransform !== 'none'){
+      console.error(`[${self.constructor.name} warn]: 该插件基于 transform 制造动画，将覆盖已有的 transform 值，因此不允许在 ${conf.popup} 元素上设置 transform 样式，请重新组织您的 html 和 css 结构！`)
+    }
+  }
+
   open(onOpen = function () {}) {
+    super.open()
+
     let self = this,
       {conf} = self,
       popup = $(conf.popup),
@@ -37,7 +60,8 @@ export default class SlidePopup extends Popup {
     }
 
     if (!popup.hasClass(conf.popupStatus)) {
-      // getTranslate 方法是拿不到 display:none 元素的偏移量的
+      // getTranslate 方法是拿不到 display:none 元素的偏移量的，
+      // 因为 display:none 元素的 transform 值总是为 none
       popup.show()
 
       // 按照偏移量去计算动画时长，因为弹窗并不总是从最底下冉冉升起的

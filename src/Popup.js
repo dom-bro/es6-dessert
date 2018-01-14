@@ -2,6 +2,10 @@ export default class Popup {
   constructor(options = {}) {
     let self = this
 
+    if (!window.$) {
+      throw `${self.constructor.name} Error: 该模块依赖 jQuery 库并且须将 jQuery 暴露为全局变量 window.$`
+    }
+
     let conf = self.conf = {
       mask: '',       // popup 遮罩（推荐传入 id）
       popup: '',      // popup 内容（推荐传入 id）
@@ -19,25 +23,17 @@ export default class Popup {
       onClose() {},    // 关闭回调
     }
 
-    if (!window.$) {
-      console.error('[Popup warn]: 该模块依赖 jQuery 库！')
-      return
-    }
-
     $.extend(conf, options)
 
-    let popup = $(conf.popup)
-
-    if (!popup.length) {
-      console.error(`[Popup warn]: 未找到 ${conf.popup} 元素！`)
-    }
-
-    self.id = `popup_${Popup.instances.length}`
-    Popup.instances.push(self)
+    self.required()
 
     // 兼容对同一个 DOM 重复实例化（强烈不推荐）
     if (!popup.hasClass('-popup-created-')) {
       popup.addClass('-popup-created-')
+
+      self.id = `popup_${Popup.instances.length}`
+      Popup.instances.push(self)
+
       self.initEvents()
     }
   }
@@ -106,10 +102,32 @@ export default class Popup {
     }
   }
 
-  // 子类须实现
-  open(onOpen = function(){}) {}
-  // 子类须实现
-  close(onClose = function(){}) {}
+  /*
+   * 子类实现时务必调用 super.xxx()
+   */
+  required(){
+    let self = this,
+      {conf} = self
+
+
+
+    let popup = $(conf.popup)
+
+    if (!popup.length) {
+      throw `${self.constructor.name} Error: 未找到 ${conf.popup} 元素！`
+    }
+
+    if(popup.css('display') !== 'none'){
+      throw `${self.constructor.name} Error: 要求 ${conf.popup} 元素必须设置为 display:none！如果需要在页面加载进来就展示，请通过在实例化后直接调用 open 来实现，比如 new ${self.constructor.name}(options).open()`
+    }
+
+  }
+  open() {
+    let self = this
+
+    self.closeOthersOnOpen()
+  }
+  close() {}
 
   toggle(onOpen = function(){}, onClose = function(){}) {
     let self = this,
