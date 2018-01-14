@@ -1,6 +1,6 @@
 import Popup from './Popup'
 import {requiredSlidePopupStyle} from "./styles"
-import {addStyle, getTranslate} from "./utils"
+import {addStyle, extend, getTranslate} from "./utils"
 
 /**
  * 底部浮现弹窗
@@ -21,10 +21,11 @@ export default class SlidePopup extends Popup {
   }
 
   required(){
+    super.required()
+
     let self = this,
       {conf} = self,
       popup = $(conf.popup)
-
 
     /*
      * 不允许在 popup 上设置 transform 样式
@@ -54,7 +55,6 @@ export default class SlidePopup extends Popup {
     self.closeOthersOnOpen()
 
     function openCallback() {
-      console.log('open')
       conf.onOpen.call(self)
       onOpen.call(self)
     }
@@ -76,7 +76,7 @@ export default class SlidePopup extends Popup {
       // 更新弹窗状态
       popup.addClass(conf.popupStatus)
         .css({
-          transform: 'translateY(0)',
+          transform: 'translate3d(0,0,0)',
           transitionDuration: `${duration}ms`,
         })
         // 过渡未完成不会触发 transitionEnd 事件，因此需要移除之前绑定的事件
@@ -103,7 +103,6 @@ export default class SlidePopup extends Popup {
       mask = $(conf.mask)
 
     function closeCallback () {
-      console.log('close')
       conf.onClose.call(self)
       onClose.call(self)
     }
@@ -119,7 +118,7 @@ export default class SlidePopup extends Popup {
 
       popup.removeClass(conf.popupStatus)
         .css({
-          transform: 'translateY(100%)',
+          transform: 'translate3d(0,100%,0)',
           transitionDuration: `${duration}ms`,
         })
         .off(transitionEnd)

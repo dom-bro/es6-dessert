@@ -105,7 +105,7 @@ export function extend(...args) {
           ) {
             extend(deep, to, from)
           } else {
-            to = from
+            target[nextKey] = from
           }
         }
       }

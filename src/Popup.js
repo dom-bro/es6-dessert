@@ -1,10 +1,8 @@
+import {extend} from "./utils";
+
 export default class Popup {
   constructor(options = {}) {
     let self = this
-
-    if (!window.$) {
-      throw `${self.constructor.name} Error: 该模块依赖 jQuery 库并且须将 jQuery 暴露为全局变量 window.$`
-    }
 
     let conf = self.conf = {
       mask: '',       // popup 遮罩（推荐传入 id）
@@ -23,10 +21,12 @@ export default class Popup {
       onClose() {},    // 关闭回调
     }
 
-    $.extend(conf, options)
+    extend(conf, options)
 
     self.required()
 
+
+    let popup = $(conf.popup)
     // 兼容对同一个 DOM 重复实例化（强烈不推荐）
     if (!popup.hasClass('-popup-created-')) {
       popup.addClass('-popup-created-')
@@ -109,18 +109,27 @@ export default class Popup {
     let self = this,
       {conf} = self
 
-
+    if (!window.$) {
+      throw `${self.constructor.name} Error: 该模块依赖 jQuery 库并且须将 jQuery 暴露为全局变量 window.$`
+    }
 
     let popup = $(conf.popup)
-
     if (!popup.length) {
       throw `${self.constructor.name} Error: 未找到 ${conf.popup} 元素！`
     }
-
     if(popup.css('display') !== 'none'){
       throw `${self.constructor.name} Error: 要求 ${conf.popup} 元素必须设置为 display:none！如果需要在页面加载进来就展示，请通过在实例化后直接调用 open 来实现，比如 new ${self.constructor.name}(options).open()`
     }
 
+    if(conf.mask && !$(conf.mask).length){
+      throw `${self.constructor.name} Error: 未找到 ${conf.mask} 元素！`
+    }
+
+    if(conf.closeOnClickMask){
+      if(!conf.mask){
+        throw `${self.constructor.name} Error: closeOnClickMask 为 true 时必须传入 mask 选项`
+      }
+    }
   }
   open() {
     let self = this

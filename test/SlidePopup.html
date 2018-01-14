@@ -13,25 +13,30 @@
     <a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>
   </h2>
   <div class="row">
-    <div class="btn btn-danger btn-lg open-popup-A">A | 遮罩和主体未分离</div>
-    <div class="btn btn-primary btn-lg open-popup-B">B | 遮罩与主体分离</div>
-  </div>
+    <div class="btn btn-danger open-popup-A">A | 遮罩和主体未分离</div>
+    <div class="btn btn-primary open-popup-B">B | 遮罩与主体分离</div>
 
-  <div class="row">
-    <div class="btn btn-success btn-lg open-popup-C">C | 特殊弹窗样式</div>
-    <div class="btn btn-info btn-lg open-popup-D">D | 无遮罩</div>
-  </div>
+    <div class="btn btn-success open-popup-C">C | 特殊弹窗样式</div>
 
-  <table>
-    <tr><td>a</td></tr>
-  </table>
+    <div class="btn btn-info open-popup-D">D | 无遮罩</div>
+
+    <div class="btn btn-warning toggle-popup-E">E | Toggle</div>
+
+    <div class="btn btn-success open-popup-F">F | 点击遮罩关闭</div>
+
+    <div class="btn btn-primary open-popup-G">G | 打开时不关闭其他弹窗</div>
+
+    <div class="btn btn-warning open-popup-H">H | 过渡时长</div>
+
+    <div class="btn btn-info open-popup-K">K | onOpen | onClose</div>
+  </div>
 </div>
 
 <div id="popup-A" class="popup" style="display: none">
   <div class="popup-inner">
     <div class="popup-content">A</div>
     <div class="foot-btn">
-      <div class="btn btn-primary btn-lg close-popup-A">关闭弹窗 A</div>
+      <div class="btn btn-primary close-popup-A">关闭弹窗 A</div>
     </div>
   </div>
 </div>
@@ -41,16 +46,16 @@
 <div id="popup-B" class="slide-popup-inner" style="display: none">
   <div class="popup-content">B</div>
   <div class="foot-btn">
-    <div class="btn btn-info btn-lg close-popup-B">关闭弹窗 B</div>
+    <div class="btn btn-info close-popup-B">关闭弹窗 B</div>
   </div>
 </div>
 
 <div id="popup-C-mask" class="popup" style="display: none"></div>
-<div id="popup-C" class="popup-inner" style="z-index: 10">
+<div id="popup-C" style="z-index: 10;display: none">
   <div class="slide-popup-inner slide-popup-C">
     <div class="popup-content">C</div>
     <div class="foot-btn">
-      <div class="btn btn-success btn-lg close-popup-C">关闭弹窗 C</div>
+      <div class="btn btn-success close-popup-C">关闭弹窗 C</div>
     </div>
   </div>
 </div>
@@ -58,11 +63,40 @@
 <div id="popup-D" class="slide-popup-inner" style="display: none">
   <div class="popup-content">D</div>
   <div class="foot-btn">
-    <div class="btn btn-danger btn-lg close-popup-D">关闭弹窗 D</div>
+    <div class="btn btn-info close-popup-D">关闭弹窗 D</div>
   </div>
 </div>
 
-<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>-->
+<div id="popup-E" class="slide-popup-inner" style="display: none;height: 20%">
+  <div class="popup-content">E</div>
+</div>
+
+<div id="popup-F-mask" class="popup" style="display: none;cursor: pointer"></div>
+<div id="popup-F" class="slide-popup-inner" style="z-index: 10;display: none;left: 10%;right: 10%;height: 30%;width: auto !important;">
+    <div class="popup-content">F</div>
+</div>
+
+<div id="popup-G" class="slide-popup-inner" style="display: none; height: 16%;background: lightcoral">
+  <div class="text-center">
+    <div class="btn btn-primary close-popup-G">关闭弹窗 G</div>
+  </div>
+</div>
+
+<div id="popup-H" class="slide-popup-inner" style="display: none">
+  <div class="popup-content">H</div>
+  <div class="foot-btn">
+    <div class="btn btn-warning close-popup-H">关闭弹窗 H</div>
+  </div>
+</div>
+
+<div id="popup-K" class="slide-popup-inner" style="display: none">
+  <div class="popup-content">K</div>
+  <div class="foot-btn">
+    <div class="btn btn-info close-popup-K">关闭弹窗 K</div>
+  </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script src="../dist/es6-dessert.js"></script>
 <script>
   var SlidePopup = es6Dessert.SlidePopup
@@ -90,6 +124,44 @@
     popup: '#popup-D',
     openBtn: '.open-popup-D',
     closeBtn: '.close-popup-D',
+  })
+
+  new SlidePopup({
+    popup: '#popup-E',
+    toggleBtn: '.toggle-popup-E',
+  })
+
+  new SlidePopup({
+    mask: '#popup-F-mask',
+    popup: '#popup-F',
+    openBtn: '.open-popup-F',
+    closeOnClickMask: true,
+  })
+
+  new SlidePopup({
+    popup: '#popup-G',
+    openBtn: '.open-popup-G',
+    closeBtn: '.close-popup-G',
+    closeOthersOnOpen: false,
+  })
+
+  new SlidePopup({
+    popup: '#popup-H',
+    openBtn: '.open-popup-H',
+    closeBtn: '.close-popup-H',
+    duration: 2000,
+  })
+
+  new SlidePopup({
+    popup: '#popup-K',
+    openBtn: '.open-popup-K',
+    closeBtn: '.close-popup-K',
+    onOpen(){
+      alert('opened K')
+    },
+    onClose(){
+      alert('closed K')
+    }
   })
 </script>
 </body>
