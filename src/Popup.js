@@ -77,7 +77,7 @@ export default class Popup {
           self.toggle()
         } else {
           self.open()
-          $(conf.activeToggleBtn).removeClass(conf.activeToggleBtn)
+          $(`.${conf.activeToggleBtn}`).removeClass(conf.activeToggleBtn)
           $this.addClass(conf.activeToggleBtn)
         }
       })
