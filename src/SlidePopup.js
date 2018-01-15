@@ -1,10 +1,12 @@
 import Popup from './Popup'
 import {requiredSlidePopupStyle} from "./styles"
-import {addStyle, extend, getTranslate} from "./utils"
+import {getTranslate} from "./utils"
 
 /**
  * 底部浮现弹窗
  */
+Popup.addStyle(requiredSlidePopupStyle)
+
 const transitionEnd = 'webkitTransitionEnd transitionend'
 
 export default class SlidePopup extends Popup {
@@ -17,7 +19,7 @@ export default class SlidePopup extends Popup {
       {conf} = self,
       popup = $(conf.popup)
 
-    addStyle(popup, requiredSlidePopupStyle)
+    popup.addClass('es6Dessert-SlidePopup')
   }
 
   required(){

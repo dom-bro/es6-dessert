@@ -1,16 +1,4 @@
 /**
- * @param el：jQuery对象
- * @param styles：css样式字符串
- * @作用 在html标签的style属性值后面追加样式
- */
-export function addStyle(el, styles){
-  let oldStyle = el.attr('style'),
-    connector = oldStyle.substr(-1) === ';' ? '' : ';'
-
-  el.attr('style', oldStyle + connector + styles.replace(/\s/g, ''))
-}
-
-/**
  * @param el：朴素的DOM元素
  * @param axis：哪个方向的偏移量（'x'|'y'）
  * @returns {number} 返回一个浮点型数值
@@ -59,18 +47,20 @@ export function getTranslate(el, axis = 'x') {
 }
 
 function getType(val){
-  return Object.prototype.toString.call(val)
+  return val ?
+    Object(val).constructor.name :
+    Object.prototype.toString.call(val).match(/\[object (.*)]/)[1]
 }
 export function isObject(val) {
-  return getType(val) === '[object Object]'
+  return getType(val) === 'Object'
 }
 
 export function isBoolean(val) {
-  return getType(val) === '[object Boolean]'
+  return getType(val) === 'Boolean'
 }
 
 export function isArray(val) {
-  return getType(val) === '[object Array]'
+  return getType(val) === 'Array'
 }
 
 /**

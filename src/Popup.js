@@ -1,5 +1,10 @@
 import {extend} from "./utils";
 
+// 将插件需要的样式写到 <style> 里 append 到 <head> 里
+let stylesheet = document.createElement('style')
+stylesheet.setAttribute('id', 'es6-dessert-stylesheet')
+document.head.appendChild(stylesheet)
+
 export default class Popup {
   constructor(options = {}) {
     let self = this
@@ -149,3 +154,6 @@ export default class Popup {
   }
 }
 Popup.instances = []
+Popup.addStyle = rules => {
+  stylesheet.innerHTML += rules
+}

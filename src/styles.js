@@ -1,5 +1,6 @@
-export let requiredSlidePopupStyle =
-` position: fixed !important;
+export let requiredSlidePopupStyle = `
+.es6Dessert-SlidePopup{
+  position: fixed !important;
   top: auto !important;
   bottom: 0 !important;
   width: 100%;
@@ -10,4 +11,4 @@ export let requiredSlidePopupStyle =
   transition-property: -webkit-transform;
   -o-transition-property: transform;
   transition-property: transform,-webkit-transform;
-`
+}`
