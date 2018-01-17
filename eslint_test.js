@@ -1,5 +1,9 @@
-import {NormalPopup} from "./dist/es6Dessert.esm";
+import {NormalPopup} from './dist/es6Dessert.esm'
 
 new NormalPopup()
 
-console.log(2);
+console.log(a)
+
+window.alert(1)
+
+$('a').alert()

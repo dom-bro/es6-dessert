@@ -1,5 +1,11 @@
 module.exports = {
-  rules: {
-    "no-console": ["error"]
+  'extends': 'standard',
+
+  'rules': {
+    'no-new': 0,
+  },
+
+  'globals': {
+    '$': false,
   }
 }
