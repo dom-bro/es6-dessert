@@ -119,3 +119,13 @@ npm i
 npm i -g rollup
 npm run build
 ```
+
+## 项目设施
+
+### Rollup
+
+### ES6+
+
+### ESLint
+
+### Karma

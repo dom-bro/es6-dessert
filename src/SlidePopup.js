@@ -1,6 +1,6 @@
-import Popup from './Popup'
-import {requiredSlidePopupStyle} from "./styles"
-import {getTranslate} from "./utils"
+import Popup from './super/Popup'
+import {requiredSlidePopupStyle} from "./modules/styles"
+import {getTranslate} from "./modules/utils"
 
 /**
  * 底部浮现弹窗

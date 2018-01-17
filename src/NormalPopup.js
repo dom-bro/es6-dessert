@@ -1,4 +1,4 @@
-import Popup from './Popup';
+import Popup from './super/Popup';
 
 /**
  * 通用弹窗

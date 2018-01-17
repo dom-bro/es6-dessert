@@ -1,4 +1,4 @@
-import {extend} from "./utils";
+import {extend} from "../modules/utils";
 
 // 将插件需要的样式写到 <style> 里 append 到 <head> 里
 let stylesheet = document.createElement('style')
