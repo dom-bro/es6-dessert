@@ -32,34 +32,81 @@ import {NormalPopup} from 'es6-dessert'
 
 直接下载并用 &lt;script> 标签引入，es6-dessert.js 会注册一个全局变量 `es6Dessert`。接下来就可以使用 `es6Dessert.NormalPopup`，`es6Dessert.CountDown` 等去食用里面的小点心了。
 
-<table>
-  <thead><tr><th>开发环境</th><th>生产环境</th><th>描述</th></tr></thead>
-  <tbody>
-  <tr>
-    <td><a href="https://unpkg.com/es6-dessert/dist/es6-dessert.js">es6-dessert.js</a></td>
-    <td><a href="https://unpkg.com/es6-dessert/dist/es6-dessert.min.js">es6-dessert.min.js</a></td>
-    <td>包含通用弹窗，倒计时，楼层定位等所有小点心</td>
-  </tr>
-  </tbody>
-</table>
-
 ## API风格
 
 本系列均效仿 Swiper 的 API 风格，力求 Keep It Simple and Stupid。只需要相对宽松有序的 DOM 结构和一致的实例化风格，That's it，多一点不人性化的东西算俄输。
 
-## 小点心列表
+## 小点心文件列表
 
 <table>
-  <thead><tr><th>模块</th><th>描述</th></tr></thead>
-  <tbody>
-  <tr>
-    <td><a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">通用弹窗</a></td>
-    <td>最常用，最普通的弹窗形式</td>
-  </tr>
-  </tbody>
+<thead>
+<th>小点心</th>
+<th>UMD(Development)</th>
+<th>UMD(Production)</th>
+<th>ES Module</th>
+</thead>
+<tbody>
+<tr><td>Full</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/es6Dessert.js">
+    es6Dessert.js
+  </a>
+  (17.35kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/es6Dessert.min.js">
+    es6Dessert.min.js
+  </a>
+  (8.11kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/es6Dessert.esm.js">
+    es6Dessert.esm.js
+  </a>
+  (11.66kb)
+</td></tr><tr><td>通用弹窗</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/NormalPopup.js">
+    NormalPopup.js
+  </a>
+  (10.23kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/NormalPopup.min.js">
+    NormalPopup.min.js
+  </a>
+  (4.83kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/NormalPopup.esm.js">
+    NormalPopup.esm.js
+  </a>
+  (6.56kb)
+</td></tr><tr><td>底部浮现弹窗</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/SlidePopup.js">
+    SlidePopup.js
+  </a>
+  (15.35kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/SlidePopup.min.js">
+    SlidePopup.min.js
+  </a>
+  (7.14kb)
+</td><td>
+  <a href="https://unpkg.com/es6-dessert/dist/SlidePopup.esm.js">
+    SlidePopup.esm.js
+  </a>
+  (10.29kb)
+</td></tr>
+</tbody>
 </table>
 
 ## 小点心家谱
+
+```js
+{
+    Object: {
+        Popup: {
+            NormalPopup,
+            SlidePopup
+        }
+    }
+}
+```
 
 ## 本地构建
 
