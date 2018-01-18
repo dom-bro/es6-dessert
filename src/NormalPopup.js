@@ -1,4 +1,4 @@
-import Popup from './super/Popup';
+import Popup from './super/Popup'
 
 /**
  * 通用弹窗
@@ -27,6 +27,7 @@ export default class NormalPopup extends Popup {
 
     let popup = $(conf.popup),
       mask = $(conf.mask)
+
     if (!popup.hasClass(conf.popupStatus)) {
       mask.stop(true)
         .clearQueue()

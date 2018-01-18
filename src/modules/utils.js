@@ -7,6 +7,7 @@
  * !!! Don't edit this !!!
  * 该函数摘自 Swiper，为了方便以后同步，请不要做任何编辑
  */
+/* eslint-disable */
 export function getTranslate(el, axis = 'x') {
   let matrix;
   let curTransform;
@@ -45,6 +46,7 @@ export function getTranslate(el, axis = 'x') {
   }
   return curTransform || 0;
 }
+/* eslint-enable */
 
 function getType(val){
   return val ?
