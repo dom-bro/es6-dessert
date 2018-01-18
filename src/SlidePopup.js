@@ -1,6 +1,6 @@
 import Popup from './super/Popup'
-import {requiredSlidePopupStyle} from "./modules/styles"
-import {getTranslate} from "./modules/utils"
+import {requiredSlidePopupStyle} from './modules/styles'
+import {getTranslate} from './modules/utils'
 
 /**
  * 底部浮现弹窗
@@ -10,7 +10,7 @@ Popup.addStyle(requiredSlidePopupStyle)
 const transitionEnd = 'webkitTransitionEnd transitionend'
 
 export default class SlidePopup extends Popup {
-  constructor(config) {
+  constructor (config) {
     config.duration = config.duration || 300
 
     super(config)
@@ -22,7 +22,7 @@ export default class SlidePopup extends Popup {
     popup.addClass('es6Dessert-SlidePopup')
   }
 
-  required(){
+  required () {
     super.required()
 
     let self = this,
@@ -36,17 +36,17 @@ export default class SlidePopup extends Popup {
     // display:none 元素是拿不到 transform 值的，
     // 因此以迅雷不及掩耳盗铃铛之势快速 show 和 hide 一下，
     // 这不会引起浏览器的重绘，所以页面不会发生闪烁
-    if(popup.css('display') === 'none'){
+    if (popup.css('display') === 'none') {
       popup.show()
       popupTransform = popup.css('transform')
       popup.hide()
     }
-    if(popupTransform !== 'none'){
+    if (popupTransform !== 'none') {
       console.error(`[${self.constructor.name} warn]: 该插件基于 transform 制造动画，将覆盖已有的 transform 值，因此不允许在 ${conf.popup} 元素上设置 transform 样式，请重新组织您的 html 和 css 结构！`)
     }
   }
 
-  open(onOpen = function () {}) {
+  open (onOpen = function () {}) {
     super.open()
 
     let self = this,
@@ -56,7 +56,7 @@ export default class SlidePopup extends Popup {
 
     self.closeOthersOnOpen()
 
-    function openCallback() {
+    function openCallback () {
       conf.onOpen.call(self)
       onOpen.call(self)
     }
@@ -68,9 +68,8 @@ export default class SlidePopup extends Popup {
 
       // 按照偏移量去计算动画时长，因为弹窗并不总是从最底下冉冉升起的
       let popupTranslate = Math.abs(getTranslate(popup[0], 'y')),
-        percent = popupTranslate/popup.outerHeight(),
+        percent = popupTranslate / popup.outerHeight(),
         duration = Math.round(conf.duration * percent)
-
 
       mask.stop(true)
         .clearQueue()
@@ -86,7 +85,7 @@ export default class SlidePopup extends Popup {
         .on(transitionEnd, e => {
           // popup 子元素的 transition 也会冒泡触发 popup 的 transitionEnd 事件，
           // 因此需要这层过滤，且必须用 on 而不能是 one 绑定事件
-          if(e.target === popup[0]){
+          if (e.target === popup[0]) {
             // 确保回调只被执行一次
             popup.off(transitionEnd)
 
@@ -98,7 +97,7 @@ export default class SlidePopup extends Popup {
     return self
   }
 
-  close(onClose = function () {}) {
+  close (onClose = function () {}) {
     let self = this,
       {conf} = self,
       popup = $(conf.popup),
@@ -111,7 +110,7 @@ export default class SlidePopup extends Popup {
 
     if (popup.hasClass(conf.popupStatus)) {
       let popupTranslate = Math.abs(getTranslate(popup[0], 'y')),
-        percent = 1 - popupTranslate/popup.outerHeight(),
+        percent = 1 - popupTranslate / popup.outerHeight(),
         duration = Math.round(conf.duration * percent)
 
       mask.stop(true)
@@ -125,7 +124,7 @@ export default class SlidePopup extends Popup {
         })
         .off(transitionEnd)
         .on(transitionEnd, e => {
-          if(e.target === popup[0]){
+          if (e.target === popup[0]) {
             popup.off(transitionEnd)
               .hide()
 

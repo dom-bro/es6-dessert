@@ -1,4 +1,4 @@
-import {extend} from "../modules/utils";
+import {extend} from '../modules/utils'
 
 // 将插件需要的样式写到 <style> 里 append 到 <head> 里
 let stylesheet = document.createElement('style')
@@ -6,30 +6,29 @@ stylesheet.setAttribute('id', 'es6-dessert-stylesheet')
 document.head.appendChild(stylesheet)
 
 export default class Popup {
-  constructor(options = {}) {
+  constructor (options = {}) {
     let self = this
 
     let conf = self.conf = {
-      mask: '',       // popup 遮罩（推荐传入 id）
-      popup: '',      // popup 内容（推荐传入 id）
-      openBtn: '',    // 打开弹窗按钮（推荐传入 class）
-      closeBtn: '',   // 关闭弹窗按钮（推荐传入 class）
-      toggleBtn: '',  // 打开/关闭按钮（推荐传入 class）
-      duration: 0,    // 动画时长
-      closeOnClickMask: false,                    // 点击遮罩时是否关闭弹窗
-      closeOthersOnOpen: true,                    // 打开一个弹窗时是否关闭其它弹窗
-      popupStatus: '-popup-visible-',             // 标识弹窗的状态
-      activeToggleBtn: '-active-trigger-btn-',    // 多个 toggle btn 情况
+      mask: '', // popup 遮罩（推荐传入 id）
+      popup: '', // popup 内容（推荐传入 id）
+      openBtn: '', // 打开弹窗按钮（推荐传入 class）
+      closeBtn: '', // 关闭弹窗按钮（推荐传入 class）
+      toggleBtn: '', // 打开/关闭按钮（推荐传入 class）
+      duration: 0, // 动画时长
+      closeOnClickMask: false, // 点击遮罩时是否关闭弹窗
+      closeOthersOnOpen: true, // 打开一个弹窗时是否关闭其它弹窗
+      popupStatus: '-popup-visible-', // 标识弹窗的状态
+      activeToggleBtn: '-active-trigger-btn-', // 多个 toggle btn 情况
 
       // 回调会在动画结束之后调用
-      onOpen() {},     // 打开回调
-      onClose() {},    // 关闭回调
+      onOpen () {}, // 打开回调
+      onClose () {}, // 关闭回调
     }
 
     extend(conf, options)
 
     self.required()
-
 
     let popup = $(conf.popup)
     // 兼容对同一个 DOM 重复实例化（强烈不推荐）
@@ -43,7 +42,7 @@ export default class Popup {
     }
   }
 
-  initEvents() {
+  initEvents () {
     let self = this,
       {conf} = self
 
@@ -94,7 +93,7 @@ export default class Popup {
     })
   }
 
-  closeOthersOnOpen() {
+  closeOthersOnOpen () {
     let self = this,
       {conf} = self
 
@@ -110,7 +109,7 @@ export default class Popup {
   /*
    * 子类实现时务必调用 super.xxx()
    */
-  required(){
+  required () {
     let self = this,
       {conf} = self
 
@@ -122,35 +121,35 @@ export default class Popup {
     if (!popup.length) {
       throw `${self.constructor.name} Error: 未找到 ${conf.popup} 元素！`
     }
-    if(popup.css('display') !== 'none'){
+    if (popup.css('display') !== 'none') {
       throw `${self.constructor.name} Error: 要求 ${conf.popup} 元素必须设置为 display:none！如果需要在页面加载进来就展示，请通过在实例化后直接调用 open 来实现，比如 new ${self.constructor.name}(options).open()`
     }
 
-    if(conf.mask && !$(conf.mask).length){
+    if (conf.mask && !$(conf.mask).length) {
       throw `${self.constructor.name} Error: 未找到 ${conf.mask} 元素！`
     }
 
-    if(conf.closeOnClickMask){
-      if(!conf.mask){
+    if (conf.closeOnClickMask) {
+      if (!conf.mask) {
         throw `${self.constructor.name} Error: closeOnClickMask 为 true 时必须传入 mask 选项`
       }
     }
   }
-  open() {
+  open () {
     let self = this
 
     self.closeOthersOnOpen()
   }
-  close() {}
+  close () {}
 
-  toggle(onOpen = function(){}, onClose = function(){}) {
+  toggle (onOpen = function () {}, onClose = function () {}) {
     let self = this,
       {conf} = self,
       popup = $(conf.popup)
 
-    popup.hasClass(conf.popupStatus) ?
-      self.close(onClose) :
-      self.open(onOpen)
+    popup.hasClass(conf.popupStatus)
+      ? self.close(onClose)
+      : self.open(onOpen)
   }
 }
 Popup.instances = []

@@ -4,11 +4,11 @@ import Popup from './super/Popup'
  * 通用弹窗
  */
 export default class NormalPopup extends Popup {
-  constructor(options = {}) {
+  constructor (options = {}) {
     super(options)
   }
 
-  open(onOpen = function () {}) {
+  open (onOpen = function () {}) {
     let self = this,
       {conf} = self
 
@@ -20,9 +20,9 @@ export default class NormalPopup extends Popup {
      * 像是在打开/关闭动画之前执行的。如果想避免这种情况，可在回调中使
      * 用 setTimeout 延迟执行这些阻塞操作。
      */
-    function openCallback() {
-        conf.onOpen.call(self)
-        onOpen.call(self)
+    function openCallback () {
+      conf.onOpen.call(self)
+      onOpen.call(self)
     }
 
     let popup = $(conf.popup),
@@ -42,11 +42,11 @@ export default class NormalPopup extends Popup {
     return self
   }
 
-  close(onClose = function () {}) {
+  close (onClose = function () {}) {
     let self = this,
       {conf} = self
 
-    function closeCallback() {
+    function closeCallback () {
       conf.onClose.call(self)
       onClose.call(self)
     }

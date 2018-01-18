@@ -19,7 +19,7 @@ configs.forEach(async config => {
 
 /* 收集构建信息 */
 let sizes = []
-function buildLogs(config, code){
+function buildLogs (config, code) {
   let size = getSize(code)
 
   console.log(`${blue(path.relative(process.cwd(), config.inputOptions.input))} -> ${blue(path.relative(process.cwd(), config.outputOptions.file))} ${size}kb`)
@@ -29,7 +29,7 @@ function buildLogs(config, code){
   sizes.push(size)
 
   let tbody = ''
-  if(sizes.length === FILES.length * 3){
+  if (sizes.length === FILES.length * 3) {
     FILES.forEach(file => {
       tbody += `<tr><td>${file.title}</td>`
       let filename = filenameMap[file.filename] || file.filename
@@ -45,7 +45,7 @@ function buildLogs(config, code){
       tbody += '</tr>'
     })
     fs.writeFile(path.join(__dirname, '../dist/builds.html'), tbody, err => {
-      if(err) throw err
+      if (err) throw err
       console.log('build done!')
     })
   }

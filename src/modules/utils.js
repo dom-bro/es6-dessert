@@ -48,27 +48,27 @@ export function getTranslate(el, axis = 'x') {
 }
 /* eslint-enable */
 
-function getType(val){
-  return val ?
-    Object(val).constructor.name :
-    Object.prototype.toString.call(val).match(/\[object (.*)]/)[1]
+function getType (val) {
+  return val
+    ? Object(val).constructor.name
+    : Object.prototype.toString.call(val).match(/\[object (.*)]/)[1]
 }
-export function isObject(val) {
+export function isObject (val) {
   return getType(val) === 'Object'
 }
 
-export function isBoolean(val) {
+export function isBoolean (val) {
   return getType(val) === 'Boolean'
 }
 
-export function isArray(val) {
+export function isArray (val) {
   return getType(val) === 'Array'
 }
 
 /**
  * $.extend
  */
-export function extend(...args) {
+export function extend (...args) {
   let target = args[0],
     i = 1,
     deep = false
@@ -80,7 +80,7 @@ export function extend(...args) {
     // Skip the boolean and the target
     target = Object(args[ i++ ])
   }
-  for ( ; i < args.length; ++i) {
+  for (; i < args.length; ++i) {
     const nextSource = args[i]
     // Skip over if null/undefined
     if (nextSource !== undefined && nextSource !== null) {
