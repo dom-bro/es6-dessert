@@ -87,6 +87,8 @@ export default class SlidePopup extends Popup {
   }
 
   close (onClose = function () {}) {
+    super.close()
+
     let self = this,
       {conf} = self,
       popup = $(conf.popup),
