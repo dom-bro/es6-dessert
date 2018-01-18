@@ -105,3 +105,24 @@ export function extend (...args) {
   }
   return target
 }
+
+/**
+ * @el jQuery对象 | DOM | 选择器
+ * @event 事件类型（如 click，transitionend 等等），多个以空格分割
+ * @callback 事件回调
+ * @作用 改进 $.fn.one
+ * @Why el 子元素的 event 事件会冒泡触发 el 的 event 事件，这不是本插件期望的效果。
+ *      比如为 el 添加 click 事件，点击其子元素时也会触发 el 的 click 事件，
+ *      本插件希望只在 event target 为 el 时才执行且仅执行一次事件处理器。
+ */
+export function triggerOnce (el, event, callback) {
+  el = $(el)
+  el.off(event) // 确保只绑一次
+    .on(event, e => {
+      if (e.target === el[0]) {
+        // 确保回调只被执行一次
+        el.off(event)
+        callback()
+      }
+    })
+}

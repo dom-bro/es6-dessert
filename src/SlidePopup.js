@@ -1,13 +1,22 @@
 import Popup from './super/Popup'
 import {requiredSlidePopupStyle} from './modules/styles'
-import {getTranslate} from './modules/utils'
+import { getTranslate, triggerOnce } from './modules/utils'
 
 /**
  * 底部浮现弹窗
  */
 Popup.addStyle(requiredSlidePopupStyle)
 
-const transitionEnd = 'webkitTransitionEnd transitionend'
+const transitionEndEvent = 'webkitTransitionEnd transitionend'
+
+function setTransform (el, val, transitionDuration) {
+  el = $(el)
+  el.css({
+    webkitTransform: val,
+    transform: val,
+    transitionDuration: `${transitionDuration}ms`,
+  })
+}
 
 export default class SlidePopup extends Popup {
   constructor (config) {
@@ -54,44 +63,24 @@ export default class SlidePopup extends Popup {
       popup = $(conf.popup),
       mask = $(conf.mask)
 
-    self.closeOthersOnOpen()
-
-    function openCallback () {
-      conf.onOpen.call(self)
-      onOpen.call(self)
-    }
-
     if (!popup.hasClass(conf.popupStatus)) {
-      // getTranslate 方法是拿不到 display:none 元素的偏移量的，
-      // 因为 display:none 元素的 transform 值总是为 none
+      // display:none 元素的 transform 值总是为 none，因此 getTranslate 方法是拿不到 display:none 元素的偏移量的，
+      // 所以先把弹窗 show 出来
       popup.show()
 
-      // 按照偏移量去计算动画时长，因为弹窗并不总是从最底下冉冉升起的
+      // 根据偏移量去计算动画时长，因为弹窗并不总是从最底下冉冉升起的
       let popupTranslate = Math.abs(getTranslate(popup[0], 'y')),
         percent = popupTranslate / popup.outerHeight(),
         duration = Math.round(conf.duration * percent)
 
-      mask.stop(true)
-        .clearQueue()
-        .fadeIn(duration)
+      mask.stop(true).clearQueue().fadeIn(duration)
       // 更新弹窗状态
       popup.addClass(conf.popupStatus)
-        .css({
-          transform: 'translate3d(0,0,0)',
-          transitionDuration: `${duration}ms`,
-        })
-        // 过渡未完成不会触发 transitionEnd 事件，因此需要移除之前绑定的事件
-        .off(transitionEnd)
-        .on(transitionEnd, e => {
-          // popup 子元素的 transition 也会冒泡触发 popup 的 transitionEnd 事件，
-          // 因此需要这层过滤，且必须用 on 而不能是 one 绑定事件
-          if (e.target === popup[0]) {
-            // 确保回调只被执行一次
-            popup.off(transitionEnd)
-
-            openCallback()
-          }
-        })
+      setTransform(popup, 'translate3d(0,0,0)', duration)
+      triggerOnce(popup, transitionEndEvent, () => {
+        conf.onOpen.call(self)
+        onOpen.call(self)
+      })
     }
 
     return self
@@ -103,34 +92,18 @@ export default class SlidePopup extends Popup {
       popup = $(conf.popup),
       mask = $(conf.mask)
 
-    function closeCallback () {
-      conf.onClose.call(self)
-      onClose.call(self)
-    }
-
     if (popup.hasClass(conf.popupStatus)) {
       let popupTranslate = Math.abs(getTranslate(popup[0], 'y')),
         percent = 1 - popupTranslate / popup.outerHeight(),
         duration = Math.round(conf.duration * percent)
 
-      mask.stop(true)
-        .clearQueue()
-        .fadeOut(duration)
-
+      mask.stop(true).clearQueue().fadeOut(duration)
       popup.removeClass(conf.popupStatus)
-        .css({
-          transform: 'translate3d(0,100%,0)',
-          transitionDuration: `${duration}ms`,
-        })
-        .off(transitionEnd)
-        .on(transitionEnd, e => {
-          if (e.target === popup[0]) {
-            popup.off(transitionEnd)
-              .hide()
-
-            closeCallback()
-          }
-        })
+      setTransform(popup, 'translate3d(0,100%,0)', duration)
+      triggerOnce(popup, transitionEndEvent, () => {
+        conf.onClose.call(self)
+        onClose.call(self)
+      })
     }
   }
 }
