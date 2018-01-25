@@ -48,7 +48,7 @@ export function getTranslate(el, axis = 'x') {
 }
 /* eslint-enable */
 
-function getType (val) {
+export function getType (val) {
   return val
     ? Object(val).constructor.name
     : Object.prototype.toString.call(val).match(/\[object (.*)]/)[1]
