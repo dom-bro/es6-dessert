@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>楼层定位测试</title>
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/demo.css">
+</head>
+<body>
+<div class="container">
+  <h2 class="text-center" style="margin-top: 2rem">
+    <a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>
+  </h2>
+
+  <div id="floors">
+    <div class="floor">1</div>
+    <div class="floor">2</div>
+    <div class="floor">3</div>
+  </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="../dist/es6Dessert.js"></script>
+<script>
+  var Floor = es6Dessert.Floor
+
+  new Floor({
+    container: '#floors',
+  })
+</script>
+</body>
+</html>

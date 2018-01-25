@@ -32,8 +32,8 @@ export default class Popup {
 
     let popup = $(conf.popup)
     // 兼容对同一个 DOM 重复实例化（强烈不推荐）
-    if (!popup.hasClass('-popup-created-')) {
-      popup.addClass('-popup-created-')
+    if (!popup.hasClass('-dessert-created-')) {
+      popup.addClass('-dessert-created-')
 
       self.id = `popup_${Popup.instances.length}`
       Popup.instances.push(self)
@@ -115,6 +115,10 @@ export default class Popup {
 
     if (!window.$) {
       throw `${self.constructor.name} Error: 该模块依赖 jQuery 库并且须将 jQuery 暴露为全局变量 window.$`
+    }
+
+    if (!conf.popup) {
+      throw `${self.constructor.name} Error: 请在实例化时指定 popup 选项！`
     }
 
     let popup = $(conf.popup)
