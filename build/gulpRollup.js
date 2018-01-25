@@ -1,28 +1,23 @@
 const rollup = require('rollup')
 const through2 = require('through2')
 const gutil = require('gulp-util')
+const getRollupConfig = require('getRollupConfig')
 
-module.exports = () => {
+/**
+ * @param edition 构建的版本 umd | prod | esm
+ */
+module.exports = (edition) => {
   return through2.obj(async (chunk, enc, cb) => {
-    const options = {
-      inputOptions: {
-        input: chunk.path,
-        plugins: [
-        ],
-      }
-    }
+    const config = getRollupConfig(edition)
 
-    try {
-      const bundle = await rollup.rollup(options);
-      const res = await bundle.generate(options);
+    const bundle = await rollup.rollup(config.inputOptions)
 
-      chunk.contents = new Buffer(res.code);
-      chunk.path = gutil.replaceExtension(chunk.path, '.js');
-    }catch(e){
-      console.error('ERROR[rollup 编译错误]');
-      console.error(e);
-    }
+    bundle.write(config.outputOptions)
 
-    cb(null, chunk);
-  });
-};
+    const {code} = await bundle.generate(config.outputOptions)
+
+    chunk.contents = Buffer.from(code)
+
+    cb(null, chunk)
+  })
+}
