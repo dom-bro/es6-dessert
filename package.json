@@ -38,7 +38,6 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "gulp": "^3.9.1",
-    "gulp-util": "^3.0.8",
     "rollup": "^0.54.0",
     "rollup-plugin-babel": "^4.0.0-beta.0",
     "rollup-plugin-commonjs": "^8.2.6",

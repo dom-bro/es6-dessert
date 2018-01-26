@@ -2,7 +2,6 @@ require('colors')
 const path = require('path')
 const rollup = require('rollup')
 const through2 = require('through2')
-const gutil = require('gulp-util')
 const getRollupConfig = require('./getRollupConfig')
 
 /**
@@ -16,7 +15,7 @@ module.exports = (edition) => {
     const {code} = await bundle.generate(config.outputOptions)
 
     chunk.contents = Buffer.from(code)
-    chunk.path = gutil.replaceExtension(chunk.path, config.outputFileExtension)
+    chunk.path = chunk.path.replace(/\.js$/, config.outputFileExtension)
 
     cb(null, chunk)
 
@@ -28,7 +27,7 @@ function collectBuildLogs (config, code) {
   const size = (code.length / 1024).toFixed(2) // kb
   const inputname = path.basename(config.inputOptions.input)
   const outputname = config.outputOptions.name + config.outputFileExtension
-  console.log(`${fixedLength(inputname, 30)} -> ${fixedLength(outputname, 30)} ${size}kb`.blue)
+  console.log(`${fixedLength(inputname, 30)} → ${fixedLength(outputname, 30)} ${size}kb`.blue)
 
   global.builds.push({
     basename: config.outputOptions.name,

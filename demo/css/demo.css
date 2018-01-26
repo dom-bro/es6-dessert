@@ -61,7 +61,7 @@
 
 #floors{
   height: 80px;
-  border: 2px solid red
+  border: 2px solid red;
 }
 .floor{
   height: 100px;

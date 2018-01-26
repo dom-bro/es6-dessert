@@ -21,7 +21,7 @@ export default class Popup {
       onClose () {}, // 关闭回调
     }
 
-    extend(conf, options)
+    extend(true, conf, options)
 
     self.required()
 

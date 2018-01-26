@@ -10,11 +10,18 @@ export default class Floor {
 
     let conf = self.conf = {
       container: '',
-      iscroll: {},
+      itemClass: '',
+      baseline: 0.5,
+      iscroll: {
+        probeType: 3,
+        scrollbars: true,
+        fadeScrollbars: true,
+        mouseWheel: true,
+      },
       onFloorChange () {},
     }
 
-    extend(conf, options)
+    extend(true, conf, options)
 
     self.required()
 
@@ -33,22 +40,25 @@ export default class Floor {
   initIScroll () {
     let self = this,
       {conf} = self,
-      container = $(conf.container)
+      container = $(conf.container),
+      wrapper = container.children().eq(0)
 
     container.addClass('es6Dessert-Floor-container')
-    container.children().eq(0).addClass('es6Dessert-Floor-wrapper')
-
-    conf.iscroll = extend({
-      probeType: 3,
-      scrollbars: true,
-      // fadeScrollbars: true,
-      mouseWheel: true,
-    }, conf.iscroll)
 
     self.scroller = new IScroll(conf.container, conf.iscroll)
+    self.activeIndex = 0
+    self._activeIndex = -1
 
-    self.scroller.on('scroll', function () {
-      console.log(this.currentPage)
+    self.scroller.on('scroll', () => {
+      wrapper.children(conf.itemClass).each((index, el) => {
+        if ($(el).offset().top - container.offset().top < container.height() * conf.baseline) {
+          self.activeIndex = index
+        }
+      })
+      if (self.activeIndex !== self._activeIndex) {
+        self._activeIndex = self.activeIndex
+        conf.onFloorChange.call(self)
+      }
     })
   }
 
@@ -68,6 +78,16 @@ export default class Floor {
     if (!container.length) {
       throw `${self.constructor.name} Error: 未找到 ${conf.container} 元素！`
     }
+
+    const invisibleError = `${self.constructor.name} Error: 你实例化 Floor 的时机必须是在 ${conf.container} 元素可见后，即 ${conf.container} 元素及其所有祖先元素的 display 属性都不为 none 后！`
+    if (container.css('display') === 'none') {
+      throw invisibleError
+    }
+    container.parents().each(function () {
+      if ($(this).css('display') === 'none') {
+        throw invisibleError
+      }
+    })
   }
 }
 

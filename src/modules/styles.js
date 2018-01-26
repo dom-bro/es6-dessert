@@ -18,7 +18,4 @@ export const requiredFloorStyle = `
   position: relative !important;
   overflow: hidden !important;
 }
-.es6Dessert-Floor-wrapper{
-  overflow: auto !important;
-}
 `
