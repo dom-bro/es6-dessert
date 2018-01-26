@@ -14,8 +14,11 @@ export const requiredSlidePopupStyle = `
 }`
 
 export const requiredFloorStyle = `
-.es6Dessert-Floor{
+.es6Dessert-Floor-container{
   position: relative !important;
   overflow: hidden !important;
+}
+.es6Dessert-Floor-wrapper{
+  overflow: auto !important;
 }
 `

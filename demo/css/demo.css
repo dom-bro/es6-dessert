@@ -60,5 +60,9 @@
 }
 
 #floors{
-  height: 20px
+  height: 80px;
+  border: 2px solid red
+}
+.floor{
+  height: 100px;
 }

@@ -32,16 +32,23 @@ export default class Floor {
 
   initIScroll () {
     let self = this,
-      {conf} = self
+      {conf} = self,
+      container = $(conf.container)
+
+    container.addClass('es6Dessert-Floor-container')
+    container.children().eq(0).addClass('es6Dessert-Floor-wrapper')
 
     conf.iscroll = extend({
       probeType: 3,
+      scrollbars: true,
+      // fadeScrollbars: true,
+      mouseWheel: true,
     }, conf.iscroll)
 
-    conf.scroller = new IScroll(conf.container, conf.iscroll)
+    self.scroller = new IScroll(conf.container, conf.iscroll)
 
-    conf.scroller.on('scroll', function () {
-      console.log(this.y)
+    self.scroller.on('scroll', function () {
+      console.log(this.currentPage)
     })
   }
 
