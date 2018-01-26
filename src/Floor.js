@@ -1,5 +1,4 @@
 import { extend } from './modules/utils'
-import Popup from './super/Popup'
 
 export default class Floor {
   constructor (options = {}) {
@@ -19,7 +18,7 @@ export default class Floor {
     if (!container.hasClass('-dessert-created-')) {
       container.addClass('-dessert-created-')
 
-      self.id = `floor_${Popup.instances.length}`
+      self.id = `floor_${Floor.instances.length}`
       Floor.instances.push(self)
 
       self.initEvents()

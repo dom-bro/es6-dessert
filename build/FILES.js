@@ -1,7 +1,6 @@
-/* src 目录待构建的文件列表 */
 module.exports = [
   {
-    filename: 'main',
+    filename: 'es6Dessert',
     title: 'Full',
   },
   {

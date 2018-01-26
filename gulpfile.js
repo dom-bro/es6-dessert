@@ -1,7 +1,13 @@
+require('colors')
+const fs = require('fs')
+const path = require('path')
 const gulp = require('gulp')
+const gulpRollup = require('./build/gulpRollup')
+const FILES = require('./build/FILES')
 
 const src = './src/*js'
 const dest = './dist'
+global.builds = []
 
 /**
  * 每个入口文件输出三个版本：
@@ -13,18 +19,41 @@ const dest = './dist'
 
 gulp.task('build:umd', () => {
   return gulp.src(src)
-    .pipe()
+    .pipe(gulpRollup('umd'))
     .pipe(gulp.dest(dest))
 })
 
 gulp.task('build:prod', () => {
   return gulp.src(src)
-    .pipe()
+    .pipe(gulpRollup('prod'))
     .pipe(gulp.dest(dest))
 })
 
 gulp.task('build:esm', () => {
   return gulp.src(src)
-    .pipe()
+    .pipe(gulpRollup('esm'))
     .pipe(gulp.dest(dest))
 })
+
+gulp.task('build:all', ['build:umd', 'build:prod', 'build:esm'], () => {
+  genBuildReport(global.builds)
+})
+
+function genBuildReport (builds) {
+  let tbody = ''
+  FILES.forEach(file => {
+    tbody += `<tr><td>${file.title}</td>`
+    builds.filter(build => file.filename === build.basename)
+      .forEach(build => {
+        tbody += '<td>' +
+          `<a href="https://unpkg.com/es6-dessert/dist/${build.filename}">` +
+          build.filename +
+          `</a>(${build.size}kb)</td>`
+      })
+    tbody += '</tr>'
+  })
+  fs.writeFile(path.join(__dirname, './dist/builds.html'), tbody, err => {
+    if (err) throw err
+    console.log('build done!'.green.bold)
+  })
+}
