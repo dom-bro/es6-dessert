@@ -1,4 +1,4 @@
-export let requiredSlidePopupStyle = `
+export const requiredSlidePopupStyle = `
 .es6Dessert-SlidePopup{
   position: fixed !important;
   top: auto !important;
@@ -12,3 +12,10 @@ export let requiredSlidePopupStyle = `
   -o-transition-property: transform;
   transition-property: transform,-webkit-transform;
 }`
+
+export const requiredFloorStyle = `
+.es6Dessert-Floor{
+  position: relative !important;
+  overflow: hidden !important;
+}
+`

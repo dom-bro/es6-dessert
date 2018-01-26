@@ -1,12 +1,12 @@
 import Popup from './super/Popup'
 import {requiredSlidePopupStyle} from './modules/styles'
-import { getTranslate, triggerOnce } from './modules/utils'
+import { getTranslate, triggerOnce, addStyle } from './modules/utils'
+
+addStyle(requiredSlidePopupStyle)
 
 /**
  * 底部浮现弹窗
  */
-Popup.addStyle(requiredSlidePopupStyle)
-
 const transitionEndEvent = 'webkitTransitionEnd transitionend'
 
 function setTransform (el, val, transitionDuration) {

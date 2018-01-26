@@ -1,4 +1,8 @@
-import { extend } from './modules/utils'
+import IScroll from 'iscroll/build/iscroll-probe'
+import { extend, addStyle } from './modules/utils'
+import {requiredFloorStyle} from './modules/styles'
+
+addStyle(requiredFloorStyle)
 
 export default class Floor {
   constructor (options = {}) {
@@ -6,6 +10,7 @@ export default class Floor {
 
     let conf = self.conf = {
       container: '',
+      iscroll: {},
       onFloorChange () {},
     }
 
@@ -21,12 +26,23 @@ export default class Floor {
       self.id = `floor_${Floor.instances.length}`
       Floor.instances.push(self)
 
-      self.initEvents()
+      self.initIScroll()
     }
   }
 
-  initEvents () {
+  initIScroll () {
+    let self = this,
+      {conf} = self
 
+    conf.iscroll = extend({
+      probeType: 3,
+    }, conf.iscroll)
+
+    conf.scroller = new IScroll(conf.container, conf.iscroll)
+
+    conf.scroller.on('scroll', function () {
+      console.log(this.y)
+    })
   }
 
   required () {
