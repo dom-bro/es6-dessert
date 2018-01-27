@@ -13,8 +13,9 @@
     <a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>
   </h2>
 
+
   <div id="floors">
-    <div>
+    <div id="floors-wrapper">
       <div class="floor">1</div>
       <div class="floor" style="background: lightcoral">2</div>
       <div class="floor">3</div>
@@ -29,6 +30,10 @@
 
   new Floor({
     container: '#floors',
+    baselineDebug: true,
+    onFloorChange () {
+      console.log(this.activeIndex)
+    }
   })
 </script>
 </body>

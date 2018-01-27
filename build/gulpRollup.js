@@ -15,7 +15,7 @@ module.exports = (edition) => {
     const {code} = await bundle.generate(config.outputOptions)
 
     chunk.contents = Buffer.from(code)
-    chunk.path = chunk.path.replace(/\.js$/, config.outputFileExtension)
+    chunk.path = chunk.path.replace(/\.\w+$/, config.outputFileExtension)
 
     cb(null, chunk)
 

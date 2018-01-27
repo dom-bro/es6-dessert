@@ -5,11 +5,14 @@ const cmj = require('rollup-plugin-commonjs')
 
 export default {
   input: './src/es6Dessert.js',
-  output: {
+  output: [{
     file: pkg.browser,
     format: 'umd',
     name: 'es6Dessert',
-  },
+  }, {
+    file: pkg.main,
+    format: 'es',
+  }],
   plugins: [
     resolve(),
     cmj(),

@@ -12,11 +12,14 @@ export default class Floor {
       container: '',
       itemClass: '',
       baseline: 0.5,
+      baselineDebug: false,
       iscroll: {
         probeType: 3,
+        mouseWheel: true,
         scrollbars: true,
         fadeScrollbars: true,
-        mouseWheel: true,
+        interactiveScrollbars: true,
+        shrinkScrollbars: 'scale',
       },
       onFloorChange () {},
     }
@@ -45,13 +48,30 @@ export default class Floor {
 
     container.addClass('es6Dessert-Floor-container')
 
+    if (conf.baselineDebug) {
+      let lineStyle = `
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        top: ${conf.baseline * 100}%;
+        left: 0;
+        border-bottom: 1px dashed #000;
+      `
+      container.append(`<div style="${lineStyle}"></div>`)
+    }
+
     self.scroller = new IScroll(conf.container, conf.iscroll)
     self.activeIndex = 0
     self._activeIndex = -1
 
-    self.scroller.on('scroll', () => {
+    function calculateActiveFloor () {
       wrapper.children(conf.itemClass).each((index, el) => {
-        if ($(el).offset().top - container.offset().top < container.height() * conf.baseline) {
+        /* $.fn.offset 方法是不包含 margin 的，因此定位逻辑就是：
+         * 当 floor 距容器顶部(包含padding和border)的距离小于基准线距容器顶部的距离时，
+         * 即floor滑到了基准线上方，此 floor 变为 activeFloor。
+         * 也即基准线穿过的楼层即是焦点楼层。
+         */
+        if ($(el).offset().top - container.offset().top < parseFloat(container.css('border-top-width')) + container.innerHeight() * conf.baseline) {
           self.activeIndex = index
         }
       })
@@ -59,7 +79,11 @@ export default class Floor {
         self._activeIndex = self.activeIndex
         conf.onFloorChange.call(self)
       }
-    })
+    }
+
+    calculateActiveFloor()
+
+    self.scroller.on('scroll', calculateActiveFloor)
   }
 
   required () {
