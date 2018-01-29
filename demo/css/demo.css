@@ -63,7 +63,11 @@
   height: 280px;
   border: 2px solid red;
   margin: 20px;
+  overflow: hidden;
 }
-.floor{
+#floors .floor{
   height: 100px;
+}
+#floors .floor:nth-child(2n+1){
+  background: lightcoral;
 }

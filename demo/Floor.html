@@ -4,21 +4,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta charset="UTF-8">
   <title>楼层定位测试</title>
-  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/demo.css">
 </head>
 <body>
 <div class="container">
   <h2 class="text-center" style="margin-top: 2rem">
-    <a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>
+    <!--<a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>-->
   </h2>
 
+  <div class="row">
+    <div class="input-group">
+      <input type="text" class="form-control" id="scrollTo" placeholder="123">
+      <span class="input-group-btn">
+        <button class="btn btn-default scrollTo" type="button" style="margin: 0">scrollTo</button>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group">
+      <input type="text" class="form-control" id="scrollBy" placeholder="+123 或 -123">
+      <span class="input-group-btn">
+        <button class="btn btn-default scrollBy" type="button" style="margin: 0">scrollBy</button>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group">
+      <input type="text" class="form-control" id="scrollToElement" placeholder=".floor:nth-child(2)">
+      <span class="input-group-btn">
+        <button class="btn btn-default scrollToElement" type="button" style="margin: 0">scrollToElement</button>
+      </span>
+    </div>
+  </div>
 
   <div id="floors">
     <div id="floors-wrapper">
+      <div class="floor">0</div>
       <div class="floor">1</div>
-      <div class="floor" style="background: lightcoral">2</div>
+      <div class="floor">2</div>
       <div class="floor">3</div>
+      <div class="floor">4</div>
+      <div class="floor">5</div>
+      <div class="floor">6</div>
+      <div class="floor">7</div>
+      <div class="floor" id="anchor">8</div>
     </div>
   </div>
 </div>
@@ -28,12 +60,22 @@
 <script>
   var Floor = es6Dessert.Floor
 
-  new Floor({
+  var floorA = new Floor({
     container: '#floors',
     baselineDebug: true,
     onFloorChange () {
       console.log(this.activeIndex)
     }
+  })
+
+  $('.scrollTo').on('click',  function () {
+    floorA.scrollTo($('#scrollTo').val(), 300)
+  })
+  $('.scrollBy').on('click',  function () {
+    floorA.scrollTo($('#scrollBy').val(), 300)
+  })
+  $('.scrollToElement').on('click',  function () {
+    floorA.scrollTo($('#scrollToElement').val())
   })
 </script>
 </body>
