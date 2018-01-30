@@ -20,6 +20,7 @@ export default class Floor {
         fadeScrollbars: true,
         interactiveScrollbars: true,
         shrinkScrollbars: 'scale',
+        bounce: false,
       },
       onFloorChange () {},
     }
@@ -71,6 +72,9 @@ export default class Floor {
     })
   }
 
+  /**
+   * @description 初始化 IScroll，主要是监听 scroll 事件及处理回调执行时机
+   */
   initIScroll () {
     let self = this,
       {conf} = self,
@@ -96,7 +100,6 @@ export default class Floor {
     self._activeIndex = -1
 
     function calculateActiveFloor () {
-      console.log('haha')
       wrapper.children(conf.itemClass).each((index, el) => {
         /* $.fn.offset 方法是不包含 margin 的，因此定位逻辑就是：
          * 当 floor 距容器顶部(包含padding和border)的距离小于基准线距容器顶部的距离时，
@@ -107,6 +110,8 @@ export default class Floor {
           self.activeIndex = index
         }
       })
+    }
+    function floorChangeCallback () {
       if (self.activeIndex !== self._activeIndex) {
         self._activeIndex = self.activeIndex
         conf.onFloorChange.call(self)
@@ -114,8 +119,13 @@ export default class Floor {
     }
 
     calculateActiveFloor()
+    floorChangeCallback()
 
-    self.on('scroll', calculateActiveFloor)
+    // 始终计算当前楼层
+    self.scroller.on('scroll', calculateActiveFloor)
+
+    // 控制 floorChange 回调触发
+    self.on('scroll', floorChangeCallback)
       .stopListen('scroll')
 
     self.on('scrollStart', () => {
@@ -140,6 +150,9 @@ export default class Floor {
    */
   scrollTo (y, ...rest) {
     const self = this
+
+    // 如果不停止可能导致 iscroll 在 momentum 时（此时未 scrollEnd 所以仍会触发 floorChangeCallback）行为异常
+    self.stopListen('scroll')
 
     // container 元素位置上的变化会导致定位错误（貌似只影响 api 滚动，手指滑动是没问题的），因此每次在这里 refresh 一下。至于元素内部发生变化，那就没办法了，只能用户手动 refresh 咯
     self.scroller.refresh()
@@ -176,6 +189,11 @@ export default class Floor {
     return self
   }
 
+  /**
+   * @param eventType beforeScrollStart | scrollCancel | scrollStart | scroll | scrollEnd
+   * @param callback 事件回调
+   * @description 封装一层 iscroll.prototype.on，使得可以监听和停止监听事件
+   */
   on (eventType, callback) {
     const self = this
 
@@ -187,21 +205,38 @@ export default class Floor {
 
     return self
   }
-  stopListen (eventType) {
+
+  /**
+   * @param eventTypes 可同时设置多个事件（以空格或逗号分隔如'scroll scrollCancel'）
+   * @description 停止触发事件监听器，需要注意的是，事件仍在触发，但句柄不在执行了，这是 on 方法做的一小层处理
+   */
+  stopListen (eventTypes) {
     const self = this
 
-    self.eventSwitches[eventType] = false
+    eventTypes.split(/[ ,]/).forEach(eventType => {
+      self.eventSwitches[eventType] = false
+    })
 
     return self
   }
-  resumeListen (eventType) {
+
+  /**
+   * @param eventTypes 可同时设置多个事件（以空格或逗号分隔如'scroll scrollCancel'）
+   * @description 恢复触发事件监听器
+   */
+  resumeListen (eventTypes) {
     const self = this
 
-    self.eventSwitches[eventType] = true
+    eventTypes.split(/[ ,]/).forEach(eventType => {
+      self.eventSwitches[eventType] = true
+    })
 
     return self
   }
 
+  /**
+   * @description iscroll.prototype.refresh
+   */
   refresh () {
     const self = this
 
@@ -213,6 +248,9 @@ export default class Floor {
 
 Floor.instances = []
 
+/**
+ * @description 解析 scrollTo 方法的传入参数，类似于方法重载
+ */
 function parseArgs (rest) {
   let res = {}
   if (rest.length) {
