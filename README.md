@@ -62,7 +62,8 @@ import {NormalPopup} from 'es6-dessert'
         Popup: {
             NormalPopup,
             SlidePopup
-        }
+        },
+        Floor,
     }
 }
 ```
