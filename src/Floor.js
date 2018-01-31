@@ -151,40 +151,45 @@ export default class Floor {
   scrollTo (y, ...rest) {
     const self = this
 
-    // 如果不停止可能导致 iscroll 在 momentum 时（此时未 scrollEnd 所以仍会触发 floorChangeCallback）行为异常
+    // 如果不停止可能导致 iscroll 在用户滑动后 momentum 时行为异常
     self.stopListen('scroll')
 
     // container 元素位置上的变化会导致定位错误（貌似只影响 api 滚动，手指滑动是没问题的），因此每次在这里 refresh 一下。至于元素内部发生变化，那就没办法了，只能用户手动 refresh 咯
     self.scroller.refresh()
 
-    let {time, easing, offsetY} = parseArgs(rest)
+    // frozen iscroll，在连续调用 scrollTo 之前清掉未完成的动画，防止相互影响，类似于 $.fn.stop(true).clearQueue()
+    clearTimeout(self.scrollToTimer)
+    self.scroller.isAnimating = false
+    self.scrollToTimer = setTimeout(() => {
+      let {time, easing, offsetY} = parseArgs(rest)
 
-    if (/^\d+$/.test(y)) {
-      // scrollTo(x, y, time, easing)
-      self.scroller.scrollTo(
-        0,
-        -y,
-        time,
-        IScroll.utils.ease[easing]
-      )
-    } else if (/^[+-]\d+$/.test(y)) {
-      // scrollBy(x, y, time, easing)
-      self.scroller.scrollBy(
-        0,
-        -parseFloat(y),
-        time,
-        IScroll.utils.ease[easing]
-      )
-    } else {
-      // scrollToElement(el, time, offsetX, offsetY, easing)
-      self.scroller.scrollToElement(
-        $(y)[0],
-        time,
-        0,
-        offsetY,
-        IScroll.utils.ease[easing]
-      )
-    }
+      if (/^\d+$/.test(y)) {
+        // scrollTo(x, y, time, easing)
+        self.scroller.scrollTo(
+          0,
+          -y,
+          time,
+          IScroll.utils.ease[easing]
+        )
+      } else if (/^[+-]\d+$/.test(y)) {
+        // scrollBy(x, y, time, easing)
+        self.scroller.scrollBy(
+          0,
+          -parseFloat(y),
+          time,
+          IScroll.utils.ease[easing]
+        )
+      } else {
+        // scrollToElement(el, time, offsetX, offsetY, easing)
+        self.scroller.scrollToElement(
+          $(y)[0],
+          time,
+          0,
+          offsetY,
+          IScroll.utils.ease[easing]
+        )
+      }
+    }, 20) // 之所以是 20 秒，是因为 iscroll 内部的实现是 requestAnimationFrame
 
     return self
   }
