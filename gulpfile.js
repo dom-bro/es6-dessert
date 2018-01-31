@@ -43,7 +43,8 @@ function genBuildReport (builds) {
   let tbody = ''
   FILES.forEach(file => {
     tbody += `<tr><td>${file.title}</td>`
-    builds.filter(build => file.filename === build.basename)
+    builds.filter(build => file.filename === build.config.outputOptions.name)
+      .sort((a, b) => a.config.index > b.config.index)
       .forEach(build => {
         tbody += '<td>' +
           `<a href="https://unpkg.com/es6-dessert/dist/${build.filename}">` +

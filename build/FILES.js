@@ -11,4 +11,8 @@ module.exports = [
     filename: 'SlidePopup',
     title: '底部浮现弹窗',
   },
+  {
+    filename: 'Floor',
+    title: '楼层定位',
+  },
 ]

@@ -19,6 +19,10 @@ module.exports = (edition) => {
 
     cb(null, chunk)
 
+    if (/umd/.test(edition)) config.index = 0
+    else if (/prod/.test(edition)) config.index = 1
+    else if (/esm/.test(edition)) config.index = 2
+
     collectBuildLogs(config, code)
   })
 }
@@ -30,8 +34,8 @@ function collectBuildLogs (config, code) {
   console.log(`${fixedLength(inputname, 30)} → ${fixedLength(outputname, 30)} ${size}kb`.blue)
 
   global.builds.push({
-    basename: config.outputOptions.name,
     filename: outputname,
+    config,
     size,
   })
 }
