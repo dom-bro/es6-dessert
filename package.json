@@ -1,6 +1,6 @@
 {
   "name": "es6-dessert",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "ES6小点心系列，包括通用弹窗，楼层定位，倒计时等等。",
   "main": "dist/es6Dessert.esm.js",
   "browser": "dist/es6Dessert.js",
