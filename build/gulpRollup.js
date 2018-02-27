@@ -7,7 +7,7 @@ const getRollupConfig = require('./getRollupConfig')
 /**
  * @param edition 构建的版本 umd | prod | esm
  */
-module.exports = (edition) => {
+module.exports = edition => {
   return through2.obj(async (chunk, enc, cb) => {
     const config = getRollupConfig(chunk, edition)
 

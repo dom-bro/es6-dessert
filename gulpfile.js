@@ -35,15 +35,13 @@ gulp.task('build:esm', () => {
     .pipe(gulp.dest(dest))
 })
 
-gulp.task('build:all', ['build:umd', 'build:prod', 'build:esm'], () => {
-  genBuildReport(global.builds)
-})
+gulp.task('build:all', gulp.series(gulp.parallel('build:umd', 'build:prod', 'build:esm'), genBuildReport))
 
-function genBuildReport (builds) {
+function genBuildReport (done) {
   let tbody = ''
   FILES.forEach(file => {
     tbody += `<tr><td>${file.title}</td>`
-    builds.filter(build => file.filename === build.config.outputOptions.name)
+    global.builds.filter(build => file.filename === build.config.outputOptions.name)
       .sort((a, b) => a.config.index > b.config.index)
       .forEach(build => {
         tbody += '<td>' +
@@ -55,6 +53,6 @@ function genBuildReport (builds) {
   })
   fs.writeFile(path.join(__dirname, './dist/builds.html'), tbody, err => {
     if (err) throw err
-    console.log('build done!'.green.bold)
+    done()
   })
 }

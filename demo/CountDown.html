@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>倒计时</title>
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/demo.css">
+</head>
+<body>
+<div class="container">
+  <h2 class="text-center" style="margin-top: 2rem">
+    <!--<a href="https://dom-bro.github.io/%E6%95%88%E6%9E%9C/effect_04_%E9%80%9A%E7%94%A8%E5%BC%B9%E7%AA%97/index.html">更详细的示例戳这里</a>-->
+  </h2>
+  <div id="index">
+    <p>1 分钟倒计时：
+      <template v-if="cd_0">{{cd_0.s + cd_0.m*60}}</template> 秒
+    </p>
+
+    <p>今年还有：
+        <template v-if="cd_1">
+            {{cd_1.days}}
+            天
+            {{cd_1.hours}}
+            小时
+            {{cd_1.minutes}}
+            分钟
+            {{cd_1.seconds}}
+            秒
+        </template>
+    </p>
+
+    <p>今天还有：
+        <template v-if="cd_2">
+            {{cd_2.hours}}
+            小时
+            {{cd_2.minutes}}
+            分钟
+            {{cd_2.seconds}}
+            秒
+        </template>
+    </p>
+  </div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="../dist/es6Dessert.js"></script>
+<script>
+  var CountDown = es6Dessert.CountDown
+
+  new Vue({
+    el: '#index',
+    data: {
+      cd_0: null,
+      cd_1: null,
+      cd_2: null,
+    },
+
+    created(){
+      this.cd_0 = new CountDown({
+        startTime: 0,
+        endTime: 1000*60,
+      })
+
+      var today = new Date()
+      this.cd_1 = new CountDown({
+        startTime: Date.now(),
+        endTime: new Date(today.getFullYear() + 1, 0, 1).getTime(),
+      })
+      this.cd_2 = new CountDown({
+        startTime: Date.now(),
+        endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).getTime(),
+      })
+    }
+  })
+</script>
+</body>
+</html>

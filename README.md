@@ -50,7 +50,7 @@ import {NormalPopup} from 'es6-dessert'
 <th>ES Module</th>
 </thead>
 <tbody>
-<tr><td>Full</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.js">es6Dessert.js</a>(90.09kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.min.js">es6Dessert.min.js</a>(44.39kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.esm.js">es6Dessert.esm.js</a>(71.51kb)</td></tr><tr><td>通用弹窗</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.js">NormalPopup.js</a>(11.36kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.min.js">NormalPopup.min.js</a>(5.15kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.esm.js">NormalPopup.esm.js</a>(6.87kb)</td></tr><tr><td>底部浮现弹窗</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.js">SlidePopup.js</a>(15.99kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.min.js">SlidePopup.min.js</a>(7.33kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.esm.js">SlidePopup.esm.js</a>(10.77kb)</td></tr><tr><td>楼层定位</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.js">Floor.js</a>(75.23kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.min.js">Floor.min.js</a>(37.09kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.esm.js">Floor.esm.js</a>(61.71kb)</td></tr>
+<tr><td>Full</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.js">es6Dessert.js</a>(92.28kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.min.js">es6Dessert.min.js</a>(45.33kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/es6Dessert.esm.js">es6Dessert.esm.js</a>(73.39kb)</td></tr><tr><td>通用弹窗</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.js">NormalPopup.js</a>(11.36kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.min.js">NormalPopup.min.js</a>(5.15kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/NormalPopup.esm.js">NormalPopup.esm.js</a>(6.87kb)</td></tr><tr><td>底部浮现弹窗</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.js">SlidePopup.js</a>(15.99kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.min.js">SlidePopup.min.js</a>(7.33kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/SlidePopup.esm.js">SlidePopup.esm.js</a>(10.77kb)</td></tr><tr><td>楼层定位</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.js">Floor.js</a>(75.23kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.min.js">Floor.min.js</a>(37.09kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/Floor.esm.js">Floor.esm.js</a>(61.71kb)</td></tr><tr><td>倒计时</td><td><a href="https://unpkg.com/es6-dessert/dist/CountDown.js">CountDown.js</a>(3.23kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/CountDown.min.js">CountDown.min.js</a>(1.40kb)</td><td><a href="https://unpkg.com/es6-dessert/dist/CountDown.esm.js">CountDown.esm.js</a>(1.99kb)</td></tr>
 </tbody>
 </table>
 
@@ -58,13 +58,12 @@ import {NormalPopup} from 'es6-dessert'
 
 ```js
 {
-    Object: {
-        Popup: {
-            NormalPopup,
-            SlidePopup
-        },
-        Floor,
-    }
+    Popup: {
+        NormalPopup,
+        SlidePopup
+    },
+    Floor,
+    CountDown,
 }
 ```
 

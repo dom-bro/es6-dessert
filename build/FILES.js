@@ -15,4 +15,8 @@ module.exports = [
     filename: 'Floor',
     title: '楼层定位',
   },
+  {
+    filename: 'CountDown',
+    title: '倒计时',
+  },
 ]
