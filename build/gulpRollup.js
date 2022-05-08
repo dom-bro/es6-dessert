@@ -12,7 +12,8 @@ module.exports = edition => {
     const config = getRollupConfig(chunk, edition)
 
     const bundle = await rollup.rollup(config.inputOptions)
-    const {code} = await bundle.generate(config.outputOptions)
+    const res = await bundle.generate(config.outputOptions)
+    const { code } = res.output[0]
 
     chunk.contents = Buffer.from(code)
     chunk.path = chunk.path.replace(/\.\w+$/, config.outputFileExtension)
